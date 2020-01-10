@@ -1,0 +1,27 @@
+//--------------------------------------------
+//
+//  base
+//  基本設定
+//
+//---------------------------------------------
+*
+  box-sizing border-box
+
+html
+  font-size 62.5%
+
+body
+  -webkit-text-size-adjust 100%!important
+  font-size 1.6rem
+  color color_base
+  font-family font_family
+
+a
+  color color_base
+  text-decoration none
+  +mq_pc()
+    &:hover
+      text-decoration underline
+
+button
+  cursor pointer
