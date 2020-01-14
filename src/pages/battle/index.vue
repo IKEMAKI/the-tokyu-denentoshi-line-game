@@ -13,22 +13,21 @@
   // 臨時残選択肢エリア
   p 全部の選択肢: {{ stationAll }}
   p 残りの選択肢: {{ stationRemaining }}
-
-  // 臨時結果エリア
-  p あなたのこたえ履歴: {{ answerHistory }}
+  p CPU残選択肢: {{ CPUKnowledge }}
 
   // 対戦エリア
   ul
     li(v-for="answer in answerHistory")
       p
-        span(v-if="answer.human") あなた：
-        |{{ answer.content }}
+        span(v-if="answer.human") あなた
+        span(v-else) あいて
+        |：{{ answer.content }}
   p {{ msg }}
 
   // 入力欄
   form.answer(@submit.prevent="submitMyAnswer")
-    input(type="text" v-model="myAnswer" @input="activateSubmit").answer-input
-    button.answer-submit(v-bind:disabled="!submitEnabled") オーライ
+    input(type="text" v-model="myAnswer").answer-input
+    button.answer-submit(v-bind:disabled="!isEnabledSubmit") オーライ
 </template>
 
 <script src="./index.js"></script>
