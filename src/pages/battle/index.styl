@@ -1,4 +1,58 @@
-// 入力欄
+//--------------------
+// 対戦ゲームページ
+//--------------------
+//- 臨時共通パーツ
+.btn-common
+  color #fff
+  padding .5em
+  background-color color_dento
+  &[disabled]
+    background-color color_gray
+
+//- 全体
+.battle
+  padding 0 1em 75px
+
+//- 設定エリア
+.config
+  // 選んでね
+  &-term
+    font-size 1.8rem
+    margin-top 1.5em
+
+  &-list
+    margin .5em 0 0 2em
+
+  &-item + .config-item
+    margin-top .3em
+
+  // スタートボタン
+  &-btn
+    @extend .btn-common
+    font-size 1.8rem
+    margin-top 3em
+
+//- ラジオボタン
+.radio
+  cursor pointer
+  &-tx
+    position relative
+    padding-left .7em
+    &::before
+      content ""
+      position absolute
+      left -1em
+      top .2em
+      width .8em
+      height .8em
+      border 1.5px solid color_dento
+      border-radius 50%
+      background-color #fff
+
+  [type="radio"]:checked + .radio-tx::before
+      background-color color_dento
+
+//- 入力欄
 .answer
   position fixed
   bottom 0
@@ -7,16 +61,20 @@
   width 100%
   padding 1em
   border-top 1px solid color_gray
+  background-color #fff
 
   &-input
     flex-grow 10
     padding-left .8em
     border 1px solid color_light_gray
+    // placeholder
+    &::placeholder
+      opacity 1
+      transition all .2s
+    &[disabled]::placeholder
+      opacity 0
 
+  // オーライ
   &-submit
-    color #fff
+    @extend .btn-common
     margin-left 1em
-    padding .5em
-    background-color color_dento
-    &[disabled]
-      background-color color_gray
