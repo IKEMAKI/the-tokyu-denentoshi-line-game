@@ -3,15 +3,23 @@
 //--------------------
 //- 臨時共通パーツ
 .btn-common
-  color #fff
+  color color_bg
   padding .5em
   background-color color_dento
+  +mq_pc()
+    transition opacity .2s
+    &:hover
+      opacity .7
   &[disabled]
     background-color color_gray
+    &:hover
+      opacity 1
 
 //- 全体
 .battle
   padding 0 1em 75px
+  // 吹き出し対策
+  overflow-x hidden
 
 //- 設定エリア
 .config
@@ -30,7 +38,7 @@
   &-btn
     @extend .btn-common
     font-size 1.8rem
-    margin-top 3em
+    margin-top 1.5em
 
 //- ラジオボタン
 .radio
@@ -38,16 +46,16 @@
   &-tx
     position relative
     padding-left .7em
-    &::before
+    &::before, &::after
       content ""
       position absolute
       left -1em
       top .2em
       width .8em
       height .8em
-      border 1.5px solid color_dento
       border-radius 50%
-      background-color #fff
+    &::before
+      border 1.5px solid color_dento
 
   [type="radio"]:checked + .radio-tx::before
       background-color color_dento
@@ -61,7 +69,7 @@
   width 100%
   padding 1em
   border-top 1px solid color_gray
-  background-color #fff
+  background-color color_bg
 
   &-input
     flex-grow 10
@@ -78,3 +86,40 @@
   &-submit
     @extend .btn-common
     margin-left 1em
+
+//- 各解答表示エリア
+.answer
+  &-list
+    margin-top 2em
+
+  // 発言ブロック
+  &-item
+    display flex
+    &+ .answer-item
+      margin-top 1em
+
+  // 発言内容
+  &-balloon
+    position relative
+    padding .5em .8em
+    background-color color_light_gray
+    &::before
+      content ""
+      position absolute
+      top 0
+      left -1.4em
+      border .7em solid transparent
+      border-right 1.4em solid color_light_gray
+      transform rotate(30deg)
+
+  // 人間発言の場合
+  &-item.isHuman
+    .answer-balloon
+      margin-left auto
+      color color_bg
+      background-color color_dento
+      &::before
+        left auto
+        right -1.4em
+        transform rotate(150deg)
+        border-color transparent color_dento transparent transparent

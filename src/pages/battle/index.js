@@ -140,6 +140,8 @@ export default {
 
       // 入力エリアを空にしておく
       this.myAnswer = '';
+      // オーライ禁止にしておく
+      this.isEnabled.submit = false;
 
       if(isCorrect) { // 残選択肢にあれば
         // 解答処理
@@ -174,6 +176,9 @@ export default {
       // 入力・送信禁止
       this.isEnabled.input = false;
       this.isEnabled.submit = false;
+
+      // メッセージを空にしておく
+      this.msg = '';
 
       // 残選択肢がなければ投了
       if(this.sta.cpu.length < 1) {
