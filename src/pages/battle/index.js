@@ -23,7 +23,10 @@ export default {
 
       answerHistory: [],
 
-      msg: '',
+      // ゲームマスター
+      gm: {
+        msg: '下のボックスに答えを入力してね\nオーライボタンで送信！',
+      },
 
       // オーライボタン発車・入力可能
       isEnabled: {
@@ -36,7 +39,7 @@ export default {
         start: '',
         end: '',
         diff: '',
-      }
+      },
     }
   },
   computed: {
@@ -47,6 +50,7 @@ export default {
       },
       set(value) {
         this.myAnswer = value;
+        // 文字が入っていれば送信可能にする
         if(value.length < 1) {
           this.isEnabled.submit = false;
         } else {
@@ -55,7 +59,24 @@ export default {
       }
     }
   },
+  // watchの記述方法確認
+  // watch: {
+  //   [this.gm.msg]() {
+  //     this.scrollDown();
+  //   }
+  // },
   methods: {
+    /**
+     * 最下部へスクロール
+     */
+    scrollDown() {
+      this.$nextTick(() => {
+        const down = document.body;
+        down.scrollTop = down.scrollHeight;
+        console.log('発火');
+      });
+    },
+
     /**
      * ゲーム開始時
      */
@@ -104,12 +125,20 @@ export default {
       this.phase = 1;
       // 開始時間保存
       this.time.start = new Date();
-      // 入力可能にする
-      this.isEnabled.input = true;
+
+      // 問題数が偶数ならCPUからスタート
+      // （プレイヤーで終わるようにする）
+      if((this.sta.all.length % 2 === 0)) {
+        this.processCPUTurn();
+      } else {
+        // 奇数ならプレイヤーのターン
+        // 入力可能にする
+        this.isEnabled.input = true;
+      }
     },
 
     /**
-     * cpuの知識を生成
+     * cpuの知識生成
      * @param {array} array 全駅のデータ
      * @param {number} count 知識の数
      * @return {array} cpuの知識を配列で返す
@@ -131,6 +160,9 @@ export default {
      * オーライ押下時
      */
     submitMyAnswer() {
+      // メッセージを空にしておく
+      this.gm.msg = '';
+
       // 入力された答え
       const answer = this.myAnswer;
       // 残選択肢に存在するかチェック
@@ -146,13 +178,16 @@ export default {
       if(isCorrect) { // 残選択肢にあれば
         // 解答処理
         this.processWhenAnswer(true, answer);
-
         // 相手のターンへ
         this.processCPUTurn();
       } else if(isClose) { // 残選択肢にはないが全選択肢にはあれば
-        this.msg = answer + 'はもうでたよ';
+        this.gm.msg = answer + 'はもうでたよ';
+        // 最下部スクロール
+        this.scrollDown();
       } else { // 残選択肢になければ
-        this.msg = answer + 'はちがうよ';
+        this.gm.msg = answer + 'はちがうよ';
+        // 最下部スクロール
+        this.scrollDown();
       }
     },
 
@@ -164,9 +199,13 @@ export default {
     processWhenAnswer(human, ans) {
       // 解答履歴配列に追加
       this.answerHistory.push({human, 'content': ans});
+
       // 解答された選択肢を消す
       this.sta.remaining = this.sta.remaining.filter(item => item !== ans);
       this.sta.cpu = this.sta.cpu.filter(item => item !== ans);
+
+      // 最下部スクロール
+      this.scrollDown();
     },
 
     /**
@@ -177,13 +216,8 @@ export default {
       this.isEnabled.input = false;
       this.isEnabled.submit = false;
 
-      // メッセージを空にしておく
-      this.msg = '';
-
       // 残選択肢がなければ投了
       if(this.sta.cpu.length < 1) {
-        this.msg = 'CPU：負けました・・・';
-
         // ゲーム終了処理へ
         this.endGame();
       } else {
@@ -194,7 +228,6 @@ export default {
 
         // 入力許可
         this.isEnabled.input = true;
-        this.isEnabled.submit = true;
       }
     },
 
@@ -204,7 +237,7 @@ export default {
     endGame() {
       // 終了時間保存
       this.time.end = new Date();
-      // 差分（クリア時間）
+      // 差分（クリア時間）算出
       this.time.diff = (this.time.end.getTime() - this.time.start.getTime()) / 1000;
     },
   }

@@ -17,7 +17,10 @@
 
 //- 全体
 .battle
-  padding 0 1em 75px
+  padding 0 1em
+  padding-bottom calc(75px + 1em)
+  margin auto
+  max-width 500px
   // 吹き出し対策
   overflow-x hidden
 
@@ -37,7 +40,6 @@
   // スタートボタン
   &-btn
     @extend .btn-common
-    font-size 1.8rem
     margin-top 1.5em
 
 //- ラジオボタン
@@ -123,3 +125,19 @@
         right -1.4em
         transform rotate(150deg)
         border-color transparent color_dento transparent transparent
+
+// GMのメッセージ
+.gm-msg
+  display flex
+  justify-content center
+  margin 1em auto
+  // 改行対応
+  white-space pre-wrap
+  &-tx
+    font-size 1.4rem
+    font-weight bold
+    text-align center
+    padding .5em .8em
+    color color_gm
+    border 2px solid color_gm
+

@@ -45,14 +45,20 @@
     ol.answer-list
       li.answer-item(v-for="answer in answerHistory" v-bind:class="{ isHuman: answer.human }")
         p.answer-balloon {{ answer.content }}
-    p {{ msg }}
-  // End フェーズ１
+    // End 対戦エリア
 
-  // 入力欄
-  form.answer(@submit.prevent="submitMyAnswer")
-    input(type="text" v-model="inputMyAnswer" v-bind:disabled="!isEnabled.input" placeholder="駅名を入力してね").answer-input
-    button.answer-submit(v-bind:disabled="!isEnabled.submit") オーライ
-  // End 入力欄
+    // GMメッセージ表示エリア
+    .gm-msg(v-if="gm.msg")
+      p.gm-msg-tx {{ gm.msg }}
+    // End GMメッセージ表示エリア
+
+    // 入力欄
+    form.answer(@submit.prevent="submitMyAnswer")
+      input(type="text" v-model="inputMyAnswer" v-bind:disabled="!isEnabled.input" placeholder="駅名を入力してね").answer-input
+      button.answer-submit(v-bind:disabled="!isEnabled.submit") オーライ
+    // End 入力欄
+
+  // End フェーズ１
 </template>
 
 <script src="./index.js"></script>
