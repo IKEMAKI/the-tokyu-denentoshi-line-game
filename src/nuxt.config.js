@@ -71,5 +71,11 @@ export default {
     */
     extend (config, ctx) {
     }
+  },
+  /**
+   * ローカルサーバー設定追加
+   */
+  server: {
+    port: 4000
   }
 }

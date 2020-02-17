@@ -59,12 +59,6 @@ export default {
       }
     }
   },
-  // watchの記述方法確認
-  // watch: {
-  //   [this.gm.msg]() {
-  //     this.scrollDown();
-  //   }
-  // },
   methods: {
     /**
      * 最下部へスクロール
@@ -73,7 +67,6 @@ export default {
       this.$nextTick(() => {
         const down = document.body;
         down.scrollTop = down.scrollHeight;
-        console.log('発火');
       });
     },
 
@@ -239,6 +232,15 @@ export default {
       this.time.end = new Date();
       // 差分（クリア時間）算出
       this.time.diff = (this.time.end.getTime() - this.time.start.getTime()) / 1000;
+      // フェーズ進行
+      this.phase = 2;
+    },
+
+    /**
+     * リトライ☆
+     */
+    retry() {
+      window.location.reload();
     },
   }
 }

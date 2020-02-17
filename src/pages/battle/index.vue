@@ -1,6 +1,4 @@
-<docs>
-  対戦ゲームページ
-</docs>
+<doc>対戦</doc>
 
 <template lang="pug">
 .battle
@@ -57,8 +55,14 @@
       input(type="text" v-model="inputMyAnswer" v-bind:disabled="!isEnabled.input" placeholder="駅名を入力してね").answer-input
       button.answer-submit(v-bind:disabled="!isEnabled.submit") オーライ
     // End 入力欄
-
   // End フェーズ１
+
+  // フェーズ２
+  template(v-if="phase === 2")
+    p ゲーム終了！
+    p クリア時間は{{time.diff}}秒だったよ！
+    button.btn-common(type="button" @click="retry()") もっかいやる
+  // End フェーズ２
 </template>
 
 <script src="./index.js"></script>
