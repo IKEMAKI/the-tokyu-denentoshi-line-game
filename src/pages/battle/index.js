@@ -1,4 +1,11 @@
+import dayjs from 'dayjs'
+
+import Result from '~/components/battle/Result'
+
 export default {
+  components: {
+    Result
+  },
   data() {
     return {
       // 駅名系まとめ
@@ -65,7 +72,7 @@ export default {
      */
     scrollDown() {
       this.$nextTick(() => {
-        const down = document.body;
+        const down = document.getElementById('__nuxt');
         down.scrollTop = down.scrollHeight;
       });
     },
@@ -117,7 +124,7 @@ export default {
       // フェーズ進行
       this.phase = 1;
       // 開始時間保存
-      this.time.start = new Date();
+      this.time.start = dayjs();
 
       // 問題数が偶数ならCPUからスタート
       // （プレイヤーで終わるようにする）
@@ -228,19 +235,11 @@ export default {
      * ゲーム終了時
      */
     endGame() {
-      // 終了時間保存
-      this.time.end = new Date();
       // 差分（クリア時間）算出
-      this.time.diff = (this.time.end.getTime() - this.time.start.getTime()) / 1000;
+      this.time.end = dayjs();
+      this.time.diff = dayjs(this.time.end).diff(this.time.start, 'second', true);
       // フェーズ進行
       this.phase = 2;
-    },
-
-    /**
-     * リトライ☆
-     */
-    retry() {
-      window.location.reload();
     },
   }
 }

@@ -28,11 +28,13 @@ export default {
   css: [
     '~/assets/css/reset.styl',
     '~/assets/css/base.styl',
+    '~/assets/css/parts.styl',
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/vue-scrollto',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -52,7 +54,8 @@ export default {
     stylus: [
       '~/assets/css/_var.styl',
       '~/assets/css/_mixin.styl',
-      '~/assets/css/_color.styl'
+      '~/assets/css/_color.styl',
+      '~/assets/css/parts.styl',
     ]
   },
   /*

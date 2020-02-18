@@ -1,0 +1,19 @@
+//--------------------------------------------
+//
+//  parts
+//  使い回しパーツ
+//
+//---------------------------------------------
+.parts
+  &-btn
+    color color_bg
+    padding .5em
+    background-color color_dento
+    +mq_pc()
+      transition opacity .2s
+      &:hover
+        opacity .7
+    &[disabled]
+      background-color color_gray
+      &:hover
+        opacity 1
