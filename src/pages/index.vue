@@ -2,7 +2,7 @@
 
 <template lang="pug">
 .top
-  nuxt-link(to="battle") START
+  nuxt-link(to="game") START
 </template>
 
 <style lang="stylus"></style>

@@ -5,6 +5,9 @@
 //
 //---------------------------------------------
 .parts
+  // ----------
+  // ボタン・リンク
+  // ----------
   &-btn
     color color_bg
     padding .5em
@@ -17,3 +20,26 @@
       background-color color_gray
       &:hover
         opacity 1
+
+  // ----------
+  // ラジオボタン
+  // ----------
+  &-radio
+    &-label
+      cursor pointer
+    &-tx
+      position relative
+      padding-left .7em
+      &::before, &::after
+        content ""
+        position absolute
+        left -1em
+        top .2em
+        width .8em
+        height .8em
+        border-radius 50%
+      &::before
+        border 1.5px solid color_dento
+
+    &-input:checked + .parts-radio-tx::before
+        background-color color_dento
