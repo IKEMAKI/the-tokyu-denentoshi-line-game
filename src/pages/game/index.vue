@@ -1,4 +1,4 @@
-<doc>ゲーム テスト</doc>
+<doc>ゲーム</doc>
 
 <template lang="pug">
 .game
